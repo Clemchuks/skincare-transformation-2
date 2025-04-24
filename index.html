@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Piano di Trasformazione</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .progress-bar {
+      width: 0;
+      transition: width 2s ease;
+      position: relative;
+    }
+
+    .bar-percent {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .popup {
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+  </style>
+</head>
+<body class="bg-[#f7fbfb] min-h-screen flex items-center justify-center px-4">
+  <div class="text-center w-full max-w-xl py-10 sm:py-16">
+    <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold text-black leading-snug">
+      Il Tuo <span class="text-[#0055B5]">Piano di Trasformazione</span>
+      <span class="text-black">è Quasi Pronto</span>
+    </h3>
+
+    <div class="mt-10 space-y-8 text-left">
+      <!-- Step 1 -->
+      <div id="step-1" class="flex flex-col hidden">
+        <div class="flex justify-between items-center">
+          <p class="text-base sm:text-lg text-gray-800" id="label-1">Definizione Obiettivi</p>
+          <i class="fas fa-check text-green-500 text-lg hidden" id="check-1"></i>
+        </div>
+        <div class="w-full h-4 bg-gray-200 rounded-full mt-2 overflow-hidden">
+          <div id="bar-1" class="h-full bg-green-500 progress-bar">
+            <span class="bar-percent" id="percent-1">0%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div id="step-2" class="flex flex-col hidden">
+        <div class="flex justify-between items-center">
+          <p class="text-base sm:text-lg text-gray-800" id="label-2">Profilo personalizzato</p>
+          <i class="fas fa-check text-green-500 text-lg hidden" id="check-2"></i>
+        </div>
+        <div class="w-full h-4 bg-gray-200 rounded-full mt-2 overflow-hidden">
+          <div id="bar-2" class="h-full bg-green-500 progress-bar">
+            <span class="bar-percent" id="percent-2">0%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div id="step-3" class="flex flex-col hidden">
+        <div class="flex justify-between items-center">
+          <p class="text-base sm:text-lg text-gray-800" id="label-3">Selezione skincare</p>
+          <i class="fas fa-check text-green-500 text-lg hidden" id="check-3"></i>
+        </div>
+        <div class="w-full h-4 bg-gray-200 rounded-full mt-2 overflow-hidden">
+          <div id="bar-3" class="h-full bg-green-500 progress-bar">
+            <span class="bar-percent" id="percent-3">0%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Final Button -->
+    <div class="mt-10 sm:mt-12 hidden" id="final-button">
+     <a href="https://omnisuomo.it/pages/crema-viso-anti-eta-omnis-made-in-italy-cv-offer-f"
+   class="bg-[#0055B5] hover:bg-[#000] text-white font-semibold text-base sm:text-lg px-6 py-3 sm:px-8 sm:py-4 rounded-lg flex items-center justify-center w-full">
+   Ottieni la Tua Skincare Essenziale
+   <i class="fas fa-play ml-3 text-white"></i>
+</a>
+    </div>
+  </div>
+
+  <!-- Popup -->
+  <div id="popup" class="fixed inset-0 z-50 flex items-center justify-center hidden popup px-4">
+    <div class="bg-white w-full max-w-sm p-6 sm:p-8 rounded-lg shadow-xl text-center">
+      <h2 class="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">È adatto a te?</h2>
+      <p class="text-sm sm:text-base text-gray-600 mb-5 sm:mb-6">Abbiamo abbinato i tuoi obiettivi di skincare. Conferma per continuare.</p>
+      <div class="flex gap-3 sm:gap-4 justify-center flex-wrap">
+        <button onclick="handleResponse()" class="bg-[#0055B5] text-white px-5 py-2 rounded-md text-sm sm:text-base">Sì</button>
+        <button onclick="handleResponse()" class="bg-gray-300 text-gray-800 px-5 py-2 rounded-md text-sm sm:text-base">No</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+  let step = 1;
+
+  const popupContent = {
+    1: {
+      title: "Imposta i Tuoi Obiettivi",
+      message: "Abbiamo iniziato a definire i tuoi obiettivi skincare. Conferma per procedere."
+    },
+    2: {
+      title: "Profilo Abbinato!",
+      message: "Il tuo profilo cutaneo è stato abbinato con precisione. Pronto per continuare?"
+    },
+    3: {
+      title: "Skincare Selezionata",
+      message: "Abbiamo selezionato i prodotti skincare essenziali per te. Conferma per completare."
+    }
+  };
+
+  const stepLabels = {
+    1: { loading: "Impostazione obiettivi...", done: "Obiettivo definito" },
+    2: { loading: "Analisi risposte sullo stile di vita...", done: "Profilo cutaneo abbinato" },
+    3: { loading: "Adattamento personalizzato...", done: "Skincare essenziale selezionata" }
+  };
+
+  function showPopup() {
+    const content = popupContent[step];
+    document.querySelector("#popup h2").textContent = content.title;
+    document.querySelector("#popup p").textContent = content.message;
+    document.getElementById("popup").classList.remove("hidden");
+  }
+
+  function hidePopup() {
+    document.getElementById("popup").classList.add("hidden");
+  }
+
+  function showRelevantSteps() {
+    for (let i = 1; i <= 3; i++) {
+      const el = document.getElementById(`step-${i}`);
+      const label = document.getElementById(`label-${i}`);
+      if (i <= step) {
+        el.classList.remove("hidden");
+        if (label && label.textContent === stepLabels[i].loading) {
+          label.textContent = stepLabels[i].loading; // Keep the loading text until fully loaded
+        }
+      } else {
+        el.classList.add("hidden");
+      }
+    }
+  }
+
+  function fillBar(id, targetPercent, callback) {
+    showRelevantSteps();
+
+    const bar = document.getElementById(id);
+    const percentId = id.replace('bar', 'percent');
+    const percentLabel = document.getElementById(percentId);
+    const labelId = id.replace('bar', 'label');  // Changed this to correctly reference label
+
+    const target = parseInt(targetPercent);
+    let current = 0;
+
+    const interval = setInterval(() => {
+      if (current >= target) {
+        clearInterval(interval);
+        if (target === 100) {
+          // Update the label to "done" after the progress reaches 100%
+          document.getElementById(labelId).textContent = stepLabels[step].done;
+        }
+        if (callback) setTimeout(callback, 300);
+      } else {
+        current++;
+        bar.style.width = `${current}%`;
+        if (percentLabel) percentLabel.textContent = `${current}%`;
+      }
+    }, 20);
+  }
+
+  function handleResponse() {
+    hidePopup();
+
+    const barId = `bar-${step}`;
+    const checkId = `check-${step}`;
+    const labelId = `label-${step}`;
+
+    // Instantly complete the progress
+    document.getElementById(barId).style.width = "100%";
+    document.getElementById(`percent-${step}`).textContent = "100%";
+    document.getElementById(checkId).classList.remove("hidden");
+    
+    // Update the label to "done" immediately after 100% progress
+    document.getElementById(labelId).textContent = stepLabels[step].done;
+
+    step++;
+    if (step <= 3) {
+      setTimeout(() => fillBar(`bar-${step}`, "50", showPopup), 1000);
+    } else {
+      showRelevantSteps();
+      setTimeout(() => {
+        document.getElementById("final-button").classList.remove("hidden");
+      }, 2000);
+    }
+  }
+
+  // Start first bar
+  setTimeout(() => {
+    showRelevantSteps();
+    fillBar("bar-1", "50", showPopup);
+  }, 1000);
+</script>
+
+</body>
+</html>
