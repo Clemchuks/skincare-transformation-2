@@ -45,7 +45,7 @@
   	<!-- Step 1 -->
   	<div id="step-1" class="flex flex-col hidden">
     	<div class="flex justify-between items-center">
-      	<p class="text-base sm:text-lg text-gray-800" id="label-1">Getting Goal</p>
+      	<p class="text-base sm:text-lg text-gray-800" id="label-1">Definendo gli obiettivi</p>
       	<i class="fas fa-check text-green-500 text-lg hidden" id="check-1"></i>
     	</div>
     	<div class="w-full h-4 bg-gray-200 rounded-full mt-2 overflow-hidden">
@@ -58,7 +58,7 @@
   	<!-- Step 2 -->
   	<div id="step-2" class="flex flex-col hidden">
     	<div class="flex justify-between items-center">
-      	<p class="text-base sm:text-lg text-gray-800" id="label-2">Matching your profile</p>
+      	<p class="text-base sm:text-lg text-gray-800" id="label-2">Analisi del tuo stile di vita</p>
       	<i class="fas fa-check text-green-500 text-lg hidden" id="check-2"></i>
     	</div>
     	<div class="w-full h-4 bg-gray-200 rounded-full mt-2 overflow-hidden">
@@ -71,7 +71,7 @@
   	<!-- Step 3 -->
   	<div id="step-3" class="flex flex-col hidden">
     	<div class="flex justify-between items-center">
-      	<p class="text-base sm:text-lg text-gray-800" id="label-3">Selecting your skincare</p>
+      	<p class="text-base sm:text-lg text-gray-800" id="label-3">Cercando una soluzione su misura per te</p>
       	<i class="fas fa-check text-green-500 text-lg hidden" id="check-3"></i>
     	</div>
     	<div class="w-full h-4 bg-gray-200 rounded-full mt-2 overflow-hidden">
@@ -84,10 +84,14 @@
 
 	<!-- Final Button -->
 	<div class="mt-10 sm:mt-12 hidden" id="final-button">
-  	<button onclick="window.location.href='https://omnisuomo.it/pages/crema-viso-anti-eta-omnis-made-in-italy-cv-offer-f'"
-    	class="bg-[#0055B5] hover:bg-[#000] text-white font-semibold text-base sm:text-lg px-6 py-3 sm:px-8 sm:py-4 rounded-lg flex items-center justify-center w-full">
+  	<a href="https://omnisuomo.it/pages/crema-viso-anti-eta-omnis-made-in-italy-cv-offer-f"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="bg-[#0055B5] hover:bg-[#000] text-white font-semibold text-base sm:text-lg px-6 py-3 sm:px-8 sm:py-4 rounded-lg flex items-center justify-center w-full">
   Scopri Il prodotto Adatto a te
   <i class="fas fa-play ml-3 text-white"></i>
+</a>
+
 </button>
 
 	</div>
@@ -105,117 +109,114 @@
 	</div>
   </div>
 
+
 <script>
   let step = 1;
 
   const popupContent = {
-	1: {
-  	title: "Per andare avanti, specificare",
-  	message: "Ti piacerebbe curare il tuo viso in modo semplice ma davvero efficace?"
-	},
-	2: {
-  	title: "Per andare avanti, specificare",
-  	message: "Vorresti migliorare l’aspetto della tua pelle SENZA stravolgere le tue abitudini?"
-	},
-	3: {
-  	title: "Per andare avanti, specificare",
-  	message: "Sembrare più giovane ti farebbe sentire più sicuro di te?"
-	}
+    1: {
+      title: "Per andare avanti, specificare",
+      message: "Ti piacerebbe curare il tuo viso in modo semplice ma davvero efficace?"
+    },
+    2: {
+      title: "Per andare avanti, specificare",
+      message: "Vorresti migliorare l’aspetto della tua pelle SENZA stravolgere le tue abitudini?"
+    },
+    3: {
+      title: "Per andare avanti, specificare",
+      message: "Sembrare più giovane ti farebbe sentire più sicuro di te?"
+    }
   };
 
   const stepLabels = {
-	1: { loading: "Definendo gli obiettivi...", done: "Obiettivo definito" },
-	2: { loading: "Analisi del tuo stile di vita...", done: "Profilo pelle personalizzato completato" },
-	3: { loading: "Soluzione su misura per te...", done: "Selezionato il trattamento essenziale per te" }
+    1: { loading: "Definendo gli obiettivi...", done: "Obiettivo definito" },
+    2: { loading: "Analisi del tuo stile di vita...", done: "Profilo pelle personalizzato completato" },
+    3: { loading: "Soluzione su misura per te...", done: "Selezionato il trattamento essenziale per te" }
   };
 
   function showPopup() {
-	const content = popupContent[step];
-	document.querySelector("#popup h2").textContent = content.title;
-	document.querySelector("#popup p").textContent = content.message;
-	document.getElementById("popup").classList.remove("hidden");
+    const content = popupContent[step];
+    document.querySelector("#popup h2").textContent = content.title;
+    document.querySelector("#popup p").textContent = content.message;
+    document.getElementById("popup").classList.remove("hidden");
   }
 
   function hidePopup() {
-	document.getElementById("popup").classList.add("hidden");
+    document.getElementById("popup").classList.add("hidden");
   }
 
   function showRelevantSteps() {
-	for (let i = 1; i <= 3; i++) {
-  	const el = document.getElementById(`step-${i}`);
-  	const label = document.getElementById(`label-${i}`);
-  	if (i <= step) {
-    	el.classList.remove("hidden");
-    	if (label && label.textContent === stepLabels[i].loading) {
-      	label.textContent = stepLabels[i].loading; // Keep the loading text until fully loaded
-    	}
-  	} else {
-    	el.classList.add("hidden");
-  	}
-	}
+    for (let i = 1; i <= 3; i++) {
+      const el = document.getElementById(`step-${i}`);
+      const label = document.getElementById(`label-${i}`);
+      if (i <= step) {
+        el.classList.remove("hidden");
+        if (label && label.textContent === stepLabels[i].loading) {
+          label.textContent = stepLabels[i].loading;
+        }
+      } else {
+        el.classList.add("hidden");
+      }
+    }
   }
 
   function fillBar(id, targetPercent, callback) {
-	showRelevantSteps();
+    showRelevantSteps();
 
-	const bar = document.getElementById(id);
-	const percentId = id.replace('bar', 'percent');
-	const percentLabel = document.getElementById(percentId);
-	const labelId = id.replace('bar', 'label');  // Changed this to correctly reference label
+    const bar = document.getElementById(id);
+    const percentId = id.replace('bar', 'percent');
+    const percentLabel = document.getElementById(percentId);
+    const labelId = id.replace('bar', 'label');
 
-	const target = parseInt(targetPercent);
-	let current = 0;
+    const target = parseInt(targetPercent);
+    let current = 0;
 
-	const interval = setInterval(() => {
-  	if (current >= target) {
-    	clearInterval(interval);
-    	if (target === 100) {
-      	// Update the label to "done" after the progress reaches 100%
-      	document.getElementById(labelId).textContent = stepLabels[step].done;
-    	}
-    	if (callback) setTimeout(callback, 300);
-  	} else {
-    	current++;
-    	bar.style.width = `${current}%`;
-    	if (percentLabel) percentLabel.textContent = `${current}%`;
-  	}
-	}, 20);
+    const interval = setInterval(() => {
+      if (current >= target) {
+        clearInterval(interval);
+        if (target === 100) {
+          document.getElementById(labelId).textContent = stepLabels[step].done;
+        }
+        if (callback) setTimeout(callback, 300);
+      } else {
+        current++;
+        bar.style.width = `${current}%`;
+        if (percentLabel) percentLabel.textContent = `${current}%`;
+      }
+    }, 20);
   }
 
   function handleResponse() {
-	hidePopup();
+    hidePopup();
 
-	const barId = `bar-${step}`;
-	const checkId = `check-${step}`;
-	const labelId = `label-${step}`;
+    const barId = `bar-${step}`;
+    const checkId = `check-${step}`;
+    const labelId = `label-${step}`;
 
-	// Instantly complete the progress
-	document.getElementById(barId).style.width = "100%";
-	document.getElementById(`percent-${step}`).textContent = "100%";
-	document.getElementById(checkId).classList.remove("hidden");
-    
-	// Update the label to "done" immediately after 100% progress
-	document.getElementById(labelId).textContent = stepLabels[step].done;
+    // Instantly complete the progress bar to 100%
+    document.getElementById(barId).style.width = "100%";
+    document.getElementById(`percent-${step}`).textContent = "100%";
+    document.getElementById(checkId).classList.remove("hidden");
+    document.getElementById(labelId).textContent = stepLabels[step].done;
 
-	step++;
-	if (step <= 3) {
-  	setTimeout(() => fillBar(`bar-${step}`, "50", showPopup), 1000);
-	} else {
-  	showRelevantSteps();
-  	setTimeout(() => {
-    	document.getElementById("final-button").classList.remove("hidden");
-  	}, 2000);
-	}
+    step++;
+
+    if (step <= 3) {
+      setTimeout(() => fillBar(`bar-${step}`, "50", showPopup), 1000);
+    } else {
+      showRelevantSteps();
+      setTimeout(() => {
+        document.getElementById("final-button").classList.remove("hidden");
+      }, 2000);
+    }
   }
 
   // Start first bar
   setTimeout(() => {
-	showRelevantSteps();
-	fillBar("bar-1", "50", showPopup);
+    showRelevantSteps();
+    fillBar("bar-1", "50", showPopup);
   }, 1000);
 </script>
-
-
 </body>
 </html>
 
