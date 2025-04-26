@@ -178,12 +178,12 @@
     step++;
 
     if (step <= 3) {
-      setTimeout(() => fillBar(`bar-${step}`, "50", showPopup), 3000); // Transition delay between steps
+      setTimeout(() => fillBar(`bar-${step}`, "50", showPopup), 4000); // Transition delay between steps
     } else {
       showRelevantSteps();
       setTimeout(() => {
         document.getElementById("final-button").classList.remove("hidden");
-      }, 2000); // Smooth final reveal
+      }, 3000); // Smooth final reveal
     }
   }
 
@@ -191,9 +191,9 @@
   setTimeout(() => {
     showRelevantSteps();
     fillBar("bar-1", "50", () => {
-      setTimeout(showPopup, 2000); // Delayed popup after first 50% fill
+      setTimeout(showPopup, 3000); // Delayed popup after first 50% fill
     });
-  }, 2000); // Slower initial start
+  }, 3000); // Slower initial start
 </script>
 
 </body>
