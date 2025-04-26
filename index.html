@@ -153,14 +153,14 @@
           document.getElementById(labelId).textContent = stepLabels[step].done;
         }
         if (callback) {
-          setTimeout(callback, 2000); // Longer pause before popup
+          setTimeout(callback, 1500); // Longer pause before popup
         }
       } else {
         current++;
         bar.style.width = `${current}%`;
         if (percentLabel) percentLabel.textContent = `${current}%`;
       }
-    }, 50); // Slower fill
+    }, 50); // Smooth slower fill
   }
 
   function handleResponse() {
@@ -178,20 +178,22 @@
     step++;
 
     if (step <= 3) {
-      setTimeout(() => fillBar(`bar-${step}`, "50", showPopup), 2000); // Slower transition
+      setTimeout(() => fillBar(`bar-${step}`, "50", showPopup), 2000); // Transition delay between steps
     } else {
       showRelevantSteps();
       setTimeout(() => {
         document.getElementById("final-button").classList.remove("hidden");
-      }, 3000); // Longer final reveal
+      }, 3000); // Smooth final reveal
     }
   }
 
   // Start first bar
   setTimeout(() => {
     showRelevantSteps();
-    fillBar("bar-1", "50", showPopup);
-  }, 1000);
+    fillBar("bar-1", "50", () => {
+      setTimeout(showPopup, 1500); // Delayed popup after first 50% fill
+    });
+  }, 2000); // Slower initial start
 </script>
 
 </body>
