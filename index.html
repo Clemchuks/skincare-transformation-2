@@ -178,7 +178,7 @@
     step++;
 
     if (step <= 3) {
-      setTimeout(() => fillBar(`bar-${step}`, "50", showPopup), 3000); // Transition delay between steps
+      setTimeout(() => fillBar(`bar-${step}`, "50", showPopup), 3000); 
     } else {
       showRelevantSteps();
       setTimeout(() => {
@@ -191,7 +191,7 @@
   setTimeout(() => {
     showRelevantSteps();
     fillBar("bar-1", "50", () => {
-      setTimeout(showPopup, 2000); // Delayed popup after first 50% fill
+      setTimeout(showPopup, 2000);
     });
   }, 3000); // Slower initial start
 </script>
